@@ -9,12 +9,12 @@ pipeline {
         stage('Checking for running containers') {
             steps {
                 script {
-                  def output = sh(returnStdout: true, script: "docker info --format '{{json .ContainersRunning}}'").trim()
-                  echo "Output: '${output}'"
+                    def output = sh(returnStdout: true, script: "docker info --format '{{json .ContainersRunning}}'").trim()
+                    echo "Output: '${output}'"
                 }
                 echo "Checking for running containers"
-                }
             }
+        }
         stage('Get Python version') {
             steps {
                 echo 'echo Testing..'
