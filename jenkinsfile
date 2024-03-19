@@ -13,14 +13,12 @@ pipeline {
                   echo "Output: '${output}'"
                 }
                 echo "Checking for running containers"
-
-            }
-        }
+                }
             }
         }
         stage('Get Python version') {
             steps {
-                sh('echo Testing..')
+                echo 'echo Testing..'
             }
         }
         stage('Test') {
