@@ -16,12 +16,11 @@ pipeline {
 
             }
         }
-        echo currentBuild.result
             }
         }
         stage('Get Python version') {
             steps {
-                sh "python3 --version"
+                echo 'Testing..'
             }
         }
         stage('Test') {
