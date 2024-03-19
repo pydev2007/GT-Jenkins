@@ -1,0 +1,43 @@
+pipeline {
+    agent { label 'docker' }
+    options {
+        timestamps()
+        buildDiscarder(logRotator(daysToKeepStr: '21'))
+        disableConcurrentBuilds()
+    }
+    stages {
+        stage('Checking for running containers') {
+            steps {
+                    script {
+                  def output = sh(returnStdout: true, script: "docker info --format '{{json .ContainersRunning}}'").trim()
+                  echo "Output: '${output}'"
+                }
+                echo "Checking for running containers"
+
+            }
+        }
+        echo currentBuild.result
+            }
+        }
+        stage('Get Python version') {
+            steps {
+                sh "python3 --version"
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+    }
+    post {
+        cleanup {
+            cleanWs(cleanWhenAborted: true)
+        }
+    }
+}
