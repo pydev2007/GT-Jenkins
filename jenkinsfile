@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checking for running containers') {
             steps {
-                    script {
+                script {
                   def output = sh(returnStdout: true, script: "docker info --format '{{json .ContainersRunning}}'").trim()
                   echo "Output: '${output}'"
                 }
@@ -34,10 +34,8 @@ pipeline {
                 echo 'Deploying....'
             }
         }
-    }
     post {
         cleanup {
             cleanWs(cleanWhenAborted: true)
         }
     }
-}
