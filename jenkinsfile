@@ -15,7 +15,6 @@ pipeline {
                 echo "Checking for running containers"
                 }
             }
-        }
         stage('Get Python version') {
             steps {
                 echo 'echo Testing..'
@@ -31,4 +30,5 @@ pipeline {
                 echo 'Deploying....'
             }
         }
+    }
 }
