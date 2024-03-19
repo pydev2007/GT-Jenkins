@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Get Python version') {
             steps {
-                echo "Testing.."
+                sh('echo Testing..')
             }
         }
         stage('Test') {
