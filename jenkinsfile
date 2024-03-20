@@ -1,4 +1,4 @@
-@Library('shared-library@GE-Testing') _
+@Library('shared-library@GT-Testing') _
 pipeline {
     agent { label 'docker' }
     options {
