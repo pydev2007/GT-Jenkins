@@ -6,7 +6,7 @@ pipeline {
         buildDiscarder(logRotator(daysToKeepStr: '21'))
         disableConcurrentBuilds()
     }
-    evironment{
+    environment{
         WEBHOOK = credentials('Slack-Webhook')
     }
     stages {
