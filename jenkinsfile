@@ -13,8 +13,7 @@ pipeline {
         stage('Checking for running containers') {
             steps {
                 script {
-                    // def output = sh(returnStdout: true, script: "docker info --format '{{json .ContainersRunning}}'").trim()
-                    def output = sh(returnStdout: true, script: "docker ps").trim()
+                    def output = sh(returnStdout: true, script: "docker info --format '{{json .ContainersRunning}}'").trim()
                     echo "Output: '${output}'"
                     webhookSend("${output} containers running", "$WEBHOOK")
                 }
