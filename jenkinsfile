@@ -15,10 +15,10 @@ pipeline {
                 script {
                     // def output = sh(returnStdout: true, script: "docker info --format '{{json .ContainersRunning}}'").trim()
                     def output = sh(returnStdout: true, script: "docker ps").trim()
-
                     echo "Output: '${output}'"
+                    webhookSend("${output} containers running", $WEBHOOK)
                 }
-                webhookSend("${output} containers running", $WEBHOOK)
+                
                 
 
             }
