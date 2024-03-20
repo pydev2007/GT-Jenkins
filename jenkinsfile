@@ -6,6 +6,9 @@ pipeline {
         buildDiscarder(logRotator(daysToKeepStr: '21'))
         disableConcurrentBuilds()
     }
+    evironment{
+        WEBHOOK = credentials('Slack-Webhook')
+    }
     stages {
         stage('Checking for running containers') {
             steps {
@@ -13,9 +16,8 @@ pipeline {
                     def output = sh(returnStdout: true, script: "docker info --format '{{json .ContainersRunning}}'").trim()
                     echo "Output: '${output}'"
                 }
-                withCredentials([string(credentialsId: 'Slack-Webhook', variable: 'webhook-url')]) {
-                    webhookSend("${output} containers running", webhook-url)
-                }
+                webhookSend("${output} containers running", $WEBHOOK)
+                
 
             }
         }
