@@ -1,3 +1,5 @@
+@Library("shared-library@GE-Testing") _
+
 pipeline {
     agent { label 'docker' }
     options {
@@ -12,10 +14,13 @@ pipeline {
                     def output = sh(returnStdout: true, script: "docker info --format '{{json .ContainersRunning}}'").trim()
                     echo "Output: '${output}'"
                 }
-                echo "Checking for running containers"
+                withCredentials([string(credentialsId: 'Slack-Webhook', variable: 'webhook-url')]) {
+                    webhookSend("${output} containers running", webhook-url)
+                }
+
             }
         }
-        stage('Get Python version') {
+        stage('Test') {
             steps {
                 echo 'echo Testing..'
             }
@@ -29,6 +34,7 @@ pipeline {
             steps {
                 echo 'Deploying....'
             }
+
         }
     }
 }
